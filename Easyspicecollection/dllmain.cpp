@@ -30,18 +30,6 @@ void subtractspice(cPlanetRecord* planet, int amount) {
 		}
 	}
 }
-class planetInformation
-	: public ICommand
-{
-public:
-	void ParseLine(const Line& line) {
-
-
-	}
-	const char* GetDescription(DescriptionMode mode) const const {
-		return "FUCK EM UP JOHNATHAN";
-	}
-};
 cPlanetRecordPtr GetFirstPlanetOfEmpire(cStarRecordPtr star)
 {
 	for (auto planet : star->GetPlanetRecords()) {
