@@ -1,0 +1,3 @@
+<mod displayName="Easy Spice Collection" unique="eggbladdersEasySpiceCollection" description="Makes the troublesome use of your scroll wheel no more. Collect spice in star systems immediately!" installerSystemVersion="1.0.1.2" hasCustomInstaller="false" dllsBuild="2.5.322">
+    <prerequisite game="GalacticAdventures">sporeEasySpiceCollection.dll</prerequisite>
+</mod>
