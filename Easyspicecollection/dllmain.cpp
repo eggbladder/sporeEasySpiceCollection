@@ -30,6 +30,7 @@ void subtractspice(cPlanetRecord* planet, int amount) {
 		}
 	}
 }
+
 cPlanetRecordPtr GetFirstPlanetOfEmpire(cStarRecordPtr star)
 {
 	for (auto planet : star->GetPlanetRecords()) {
@@ -80,7 +81,7 @@ member_detour(GetEmpireForStar__detour, Simulator::cStarManager, cEmpire* (cStar
 					else if (playerinv->GetAvailableCargoSlotsCount() != 0) {
 						add = true;
 					}
-					if (add) {
+					if (add && spiceamount >= 1) {
 						cSpaceTrading->ObtainTradingObject(spicetype, spiceamount);
 						subtractspice(planet.get(), spiceamount);
 					}
