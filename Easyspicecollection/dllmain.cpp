@@ -31,14 +31,6 @@ void subtractspice(cPlanetRecord* planet, int amount) {
 	}
 }
 
-cPlanetRecordPtr GetFirstPlanetOfEmpire(cStarRecordPtr star)
-{
-	for (auto planet : star->GetPlanetRecords()) {
-		if (planet->GetTechLevel() == TechLevel::Empire) {
-			return planet;
-		}
-	}
-}
 void Initialize()
 {
 	// This method is executed when the game starts, before the user interface is shown
@@ -58,18 +50,15 @@ void Initialize()
 member_detour(GetEmpireForStar__detour, Simulator::cStarManager, cEmpire* (cStarRecord*)) {
 	cEmpire* detoured(cStarRecord * starRecord) {
 		auto empire = original_function(this, starRecord);
-		if (empire == GetPlayerEmpire()) {
+		if (empire && empire == GetPlayerEmpire() && SimulatorSpaceGame.Get()) {
 			for (auto planet : starRecord->GetPlanetRecords()) {
-				if (planet->GetTechLevel() == TechLevel::Empire) {
-					LocalizedString idk;
+				if (planet && planet->GetTechLevel() == TechLevel::Empire) {
 					auto cSpaceTrading = cSpaceTrading::Get();
-					auto playerinv = SimulatorSpaceGame.GetPlayerInventory();
-				
-					auto spiceamount = cPlanetRecord::CalculateSpiceProduction(planet.get(), 0);
+					auto playerinv = SimulatorSpaceGame.GetPlayerInventory();					auto spiceamount = cPlanetRecord::CalculateSpiceProduction(planet.get(), 0);
 					auto spicetype = planet->mSpiceGen;
 					auto playerinventory = playerinv->mInventoryItems; 
 					auto index = hasitem(playerinventory, spicetype.instanceID);
-					auto number = playerinv->mMaxItemCountPerItem;
+					auto number = playerinv->mMaxItemCountPerItem; 
 					bool add = false;
 					if (index != -1) {
 						auto count = playerinventory[index]->mItemCount;
